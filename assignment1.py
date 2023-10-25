@@ -1,7 +1,7 @@
 """
-Name:
-Date started:
-GitHub URL:
+Name: Nathan Orawi
+Date started: 25/10/2023
+GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
 
 
