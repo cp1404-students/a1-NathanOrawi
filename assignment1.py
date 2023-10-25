@@ -3,6 +3,7 @@ Name: Nathan Orawi
 Date started: 25/10/2023
 GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
+FILE_NAME = "songs.csv"
 
 MENU = """Menu:
 D - Display songs
@@ -13,6 +14,7 @@ Q - Quit"""
 
 def main():
     """..."""
+    read_from_file(FILE_NAME)
     print("Song List 1.0 - by Nathan Orawi")
     menu()
 
@@ -35,6 +37,14 @@ def menu():
         print(MENU)
         choice = input(">>> ").upper()
     print("X songs saved to songs.csv")
+
+
+def read_from_file(file):
+    """reads from a file"""
+    in_file = open(file)
+    song = in_file.read()
+    print(song)
+    in_file.close()
 
 
 if __name__ == '__main__':
