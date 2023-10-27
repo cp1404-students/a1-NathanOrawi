@@ -5,7 +5,7 @@ GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
 FILE_NAME = "songs.csv"
 songs = []
-
+sorted_songs = []
 
 MENU = """Menu:
 D - Display songs
@@ -16,12 +16,14 @@ Q - Quit"""
 
 def main():
     """..."""
+
     is_only_once = True
     if is_only_once:
         make_dictionary()
         is_only_once = False
 
     read_from_file()
+
     print("Song List 1.0 - by Nathan Orawi")
     menu()
 
@@ -36,7 +38,7 @@ def menu():
         elif choice == 'A':
             add_song()
         elif choice == 'C':
-            print("Song complete")
+            mark_as_learned()
         else:
             print("Invalid menu choice")
         print(MENU)
@@ -68,13 +70,13 @@ def format_data():
     i = 1
     learned = 0
     sorted_songs = sorted(songs, key=lambda x: x['year'])
-
+    print(sorted_songs)
     # Print the sorted list
-    for song in sorted_songs:
+    for sorted_song in sorted_songs:
         # print(song)
 
         # for data in data_list:
-        title, artist, year, learned_status = song.values()
+        title, artist, year, learned_status = sorted_song.values()
         if learned_status == 'u':
             learned_status = '*'
             learned += 1
@@ -83,6 +85,23 @@ def format_data():
         print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
         i += 1
     print(f"{len(sorted_songs) - learned} songs learned, {learned} songs still to learn")
+
+
+def mark_as_learned():
+    """marks a song chosen by its number as learned"""
+
+    mark = int(input(">>> "))
+    sorted_songs = sorted(songs, key=lambda x: x['year'])
+    # print(enumerate(sorted_songs))
+    for index, item in enumerate(sorted_songs):
+        # print(f" {index} {item}")
+        if index == (mark - 1):
+            title, artist, year, learned_status = item.values()  # learned_song
+            item[index] = {'title': title, 'artist': artist, 'year': year, 'learned status': 'l'}
+            # if learned_status == 'u':
+            print(f"{title} by {artist} learned")
+        sorted_songs[index] = item
+    print(sorted_songs)
 
 
 def add_song():
@@ -104,7 +123,7 @@ def add_song():
             else:
                 is_valid_input = True
         except ValueError:
-            print("Invalid (not an integer)")
+            print("Invalid input; enter a valid number.")
 
     songs.append({'title': new_title, 'artist': new_artist, 'year': str(new_year), 'learned status': 'u'})
     print(f"{new_title} by {new_artist} ({new_year}) added to song list.")
