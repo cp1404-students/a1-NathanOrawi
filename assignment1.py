@@ -83,15 +83,16 @@ def format_data():
 
 
 def add_song():
-    title = input("Title: ")
-    artist = input("Artist: ")
-    year = input("Year: ")
+    print("Enter details for a new song")
+        title = input("Title: ")
+        artist = input("Artist: ")
+        year = input("Year: ")
 
-    if title and artist and year:
-        songs.append({'title': title, 'artist': artist, 'year': year, 'learned': 'unlearned'})
-        print("Song added successfully.")
-    else:
-        print("Invalid input. Song not added.")
+        if title and artist and year:
+            songs.append({'title': title, 'artist': artist, 'year': year, 'learned': 'unlearned'})
+            print(f"{title} by {artist} ({year}) added to song list.")
+        else:
+            print("No")
 
 
 # def get_data():
