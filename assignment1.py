@@ -77,9 +77,10 @@ def make_dictionary():
     return data_list
 
 
-def format_data(song_list):
+def format_data(song_list, learned=None):
     """Format and Display subject details with supporting data """
     i = 1
+    learned = 0
     sorted_song_list = sorted(song_list, key=lambda x: x['year'])
 
     # Print the sorted list
@@ -90,14 +91,12 @@ def format_data(song_list):
         title, artist, year, learned_status = song.values()
         if learned_status == 'u':
             learned_status = '*'
+            learned += 1
         else:
             learned_status = ''
         print(f"{i:1}. {learned_status:2} {title:30} - {artist:25} ({year})")
         i += 1
-    # # print(f"{parts[3]:3} {parts[0]:30} - {parts[1]:20} ({parts[2]})")
-
-    # for parts in data:
-    #     print(f"{parts[3]:3} {parts[0]:30} - {parts[1]:20} ({parts[2]})")
+    print(f"{len(sorted_song_list) - learned} songs learned, {learned} songs still to learn")
 
 
 def get_data():
