@@ -5,7 +5,7 @@ GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
 FILE_NAME = "songs.csv"
 songs = []
-once = 1
+
 
 MENU = """Menu:
 D - Display songs
@@ -80,7 +80,7 @@ def format_data():
             learned += 1
         else:
             learned_status = ''
-        print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year})")
+        print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
         i += 1
     print(f"{len(sorted_songs) - learned} songs learned, {learned} songs still to learn")
 
