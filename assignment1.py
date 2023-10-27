@@ -4,7 +4,7 @@ Date started: 25/10/2023
 GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
 FILE_NAME = "songs.csv"
-SONGS = []
+songs = []
 
 MENU = """Menu:
 D - Display songs
@@ -15,8 +15,7 @@ Q - Quit"""
 
 def main():
     """..."""
-
-    read_from_file(FILE_NAME)
+    read_from_file()
     print("Song List 1.0 - by Nathan Orawi")
     menu()
 
@@ -27,9 +26,10 @@ def menu():
     choice = input(">>> ").upper()
     while choice != 'Q':
         if choice == 'D':
-            format_data(make_dictionary())
+            make_dictionary()
+            format_data()
         elif choice == 'A':
-            print("Song added")
+            add_song()
         elif choice == 'C':
             print("Song complete")
         else:
@@ -39,52 +39,35 @@ def menu():
     print("X songs saved to songs.csv")
 
 
-def read_from_file(file):
+def read_from_file():
     """reads from a file and display string line by line"""
-    in_file = open(file)
-    songs = in_file.read()
-    print(songs)
+    in_file = open(FILE_NAME)
+    songs_csv = in_file.read()
     in_file.close()
-    return songs
-
-
-def create_nested_list_from_file(file):
-    in_file = open(file)
-    songs = []
-    for line in in_file:
-        song = (line.strip().split('  '))
-        # print(song)
-        songs.append(song)
-    # print(songs)
-    in_file.close()
-    return songs
+    print(songs_csv)
 
 
 def make_dictionary():
-    """makes a dictionary from a file"""
-    data_list = []
+    """makes a song dictionary from csv file"""
 
     with open(FILE_NAME, 'r') as csvfile:
-        lines = csvfile.readlines()
-        headers = [header.strip() for header in lines[0].split(',')]
-        for line in lines[1:]:
+        songs_csv = csvfile.readlines()
+        fields = [fields.strip() for fields in songs_csv[0].split(',')]
+        for line in songs_csv[1:]:
             values = [value.strip() for value in line.split(',')]
-            row_dict = {header: value for header, value in zip(headers, values)}
-            data_list.append(row_dict)
-
-    # for data in data_list:
-    #     print(data)
-    return data_list
+            song = {field: value for field, value in zip(fields, values)}
+            songs.append(song)
+    # print(songs)
 
 
-def format_data(song_list, learned=None):
-    """Format and Display subject details with supporting data """
+def format_data():
+    """Takes the song dictionary then formats and Displays it """
     i = 1
     learned = 0
-    sorted_song_list = sorted(song_list, key=lambda x: x['year'])
+    sorted_songs = sorted(songs, key=lambda x: x['year'])
 
     # Print the sorted list
-    for song in sorted_song_list:
+    for song in sorted_songs:
         # print(song)
 
         # for data in data_list:
@@ -96,26 +79,42 @@ def format_data(song_list, learned=None):
             learned_status = ''
         print(f"{i:1}. {learned_status:2} {title:30} - {artist:25} ({year})")
         i += 1
-    print(f"{len(sorted_song_list) - learned} songs learned, {learned} songs still to learn")
+    print(f"{len(sorted_songs) - learned} songs learned, {learned} songs still to learn")
 
 
-def get_data():
-    """Read data from file formatted like: subject,lecturer,number of students."""
-    data = []
-    input_file = open(FILE_NAME)
-    for line in input_file:
-        # print(line)  # See what a line looks like
-        # print(repr(line))  # See what a line really looks like
-        line = line.strip()  # Remove the \n
-        parts = line.split(',')  # Separate the data into its parts
-        # print(parts)  # See what the parts look like (notice the integer is a string)
-        parts[2] = int(parts[2])  # Make the number an integer (ignore PyCharm's warning)
-        # print(parts)  # See if that worked
-        data.append(parts)
-        # print("----------")
-    input_file.close()
-    return data
+def add_song():
+    title = input("Title: ")
+    artist = input("Artist: ")
+    year = input("Year: ")
 
+    if title and artist and year:
+        songs.append({'title': title, 'artist': artist, 'year': year, 'learned': 'unlearned'})
+        print("Song added successfully.")
+    else:
+        print("Invalid input. Song not added.")
+
+
+# def get_data():
+#     """Read data from file formatted like: subject,lecturer,number of students."""
+#     data = []
+#     input_file = open(FILE_NAME)
+#     for line in input_file:
+#         line = line.strip()
+#         parts = line.split(',')
+#         data.append(parts)
+#     input_file.close()
+#     # print(data)
+
+
+# def create_nested_list_from_file():
+#     in_file = open(FILE_NAME)
+#     for song in in_file:
+#         songs = (song.strip().split('  '))
+#         # print(song)
+#         songs.append(song)
+#     # print(songs)
+#     in_file.close()
+#     print(songs)
 
 if __name__ == '__main__':
     main()
