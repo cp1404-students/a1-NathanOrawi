@@ -15,6 +15,7 @@ Q - Quit"""
 
 def main():
     """..."""
+
     read_from_file(FILE_NAME)
     print("Song List 1.0 - by Nathan Orawi")
     menu()
@@ -26,8 +27,7 @@ def menu():
     choice = input(">>> ").upper()
     while choice != 'Q':
         if choice == 'D':
-            data = get_data()
-            format_data(data)
+            format_data(make_dictionary())
         elif choice == 'A':
             print("Song added")
         elif choice == 'C':
@@ -60,12 +60,44 @@ def create_nested_list_from_file(file):
     return songs
 
 
-def format_data(data):
+def make_dictionary():
+    """makes a dictionary from a file"""
+    data_list = []
+
+    with open(FILE_NAME, 'r') as csvfile:
+        lines = csvfile.readlines()
+        headers = [header.strip() for header in lines[0].split(',')]
+        for line in lines[1:]:
+            values = [value.strip() for value in line.split(',')]
+            row_dict = {header: value for header, value in zip(headers, values)}
+            data_list.append(row_dict)
+
+    # for data in data_list:
+    #     print(data)
+    return data_list
+
+
+def format_data(song_list):
     """Format and Display subject details with supporting data """
-    for parts in data:
-        for part in parts:
-            pass
-        print(f"{parts[3]:3} {parts[0]:30} - {parts[1]:20} ({parts[2]})")
+    i = 1
+    sorted_song_list = sorted(song_list, key=lambda x: x['year'])
+
+    # Print the sorted list
+    for song in sorted_song_list:
+        # print(song)
+
+        # for data in data_list:
+        title, artist, year, learned_status = song.values()
+        if learned_status == 'u':
+            learned_status = '*'
+        else:
+            learned_status = ''
+        print(f"{i:1}. {learned_status:2} {title:30} - {artist:25} ({year})")
+        i += 1
+    # # print(f"{parts[3]:3} {parts[0]:30} - {parts[1]:20} ({parts[2]})")
+
+    # for parts in data:
+    #     print(f"{parts[3]:3} {parts[0]:30} - {parts[1]:20} ({parts[2]})")
 
 
 def get_data():
