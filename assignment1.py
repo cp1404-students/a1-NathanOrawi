@@ -30,6 +30,7 @@ def main():
 
 def menu():
     """display a menu for the user to choose from"""
+    print(f"{len(songs)} songs loaded")
     print(MENU)
     choice = input(">>> ").upper()
     while choice != 'Q':
@@ -43,7 +44,7 @@ def menu():
             print("Invalid menu choice")
         print(MENU)
         choice = input(">>> ").upper()
-    print("X songs saved to songs.csv")
+    print(f"{len(sorted_songs) + len(songs)} songs saved to {FILE_NAME} \nMake some music!")
 
 
 def read_from_file():
@@ -70,7 +71,7 @@ def format_data():
     i = 1
     learned = 0
     sorted_songs = sorted(songs, key=lambda x: x['year'])
-    print(sorted_songs)
+    # print(sorted_songs)
     # Print the sorted list
     for sorted_song in sorted_songs:
         title, artist, year, learned_status = sorted_song.values()
@@ -81,7 +82,7 @@ def format_data():
             learned_status = ''
         print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
         i += 1
-    print(f"{len(sorted_songs) - learned} songs learned, {learned} songs still to learn")
+    print(f"{len(sorted_songs) - learned} songs learned, {learned} songs still to learn.")
 
 
 def mark_as_learned():
@@ -89,6 +90,9 @@ def mark_as_learned():
     learned_index = 0
     print("Enter the number of a song to mark as learned.")
     mark = int(input(">>> "))
+    while mark <= 0:
+        print("Number must be > 0.")
+        mark = int(input(">>> "))
     sorted_songs = sorted(songs, key=lambda x: x['year'])
     # print(enumerate(sorted_songs))
     for index, item in enumerate(sorted_songs):
