@@ -97,42 +97,47 @@ def mark_as_learned():
     sorted_songs = sorted(songs, key=lambda x: x['year'])
     is_valid_input = False
     while not is_valid_input:
-            mark = int(input(">>> "))
-            if mark <= 0:
-                print("Number must be > 0.")
-            elif mark > len(sorted_songs):
-                print("Invalid song number")
-            else:
-                # print(enumerate(sorted_songs))
-                for index, item in enumerate(sorted_songs):
-                    # print(f" {index} {item}")
-                    if index == (mark - 1):
-                        title, artist, year, learned_status = item.values()  # learned_song
+        mark = int(input(">>> "))
+        if mark <= 0:
+            print("Number must be > 0.")
+        elif mark > len(sorted_songs):
+            print("Invalid song number")
+        else:
+            # print(enumerate(sorted_songs))
+            for index, item in enumerate(sorted_songs):
+                # print(f" {index} {item}")
+                if index == (mark - 1):
+                    title, artist, year, learned_status = item.values()
+                    if learned_status == 'l':
+                        print(f"You have already learned {title}")
+                    else:
                         print(f"{title} by {artist} learned")
                         learned_index = index
-                        break
-                sorted_songs[learned_index]['learned status'] = 'l'
-                is_valid_input = True
+                    break
+            sorted_songs[learned_index]['learned status'] = 'l'
+            is_valid_input = True
 
     # print(sorted_songs)
 
 
 def add_song():
-    print("Enter details for a new song")
+    print("Enter details for a new song.")
     new_title = input("Title: ")
     while new_title.strip() == '':
-        print("Input can not be blank")
+        print("Input can not be blank.")
         new_title = input("Title: ")
     new_artist = input("Artist: ")
     while new_artist.strip() == '':
-        print("Input can not be blank")
+        print("Input can not be blank.")
         new_artist = input("Artist: ")
     is_valid_input = False
     while not is_valid_input:
         try:
             new_year = int(input("Year: "))
-            if new_year < 0:
+            if new_year <= 0:
                 print("Number must be > 0.")
+            elif new_year < 1860 or new_year >= 2024:
+                print(f"Song record do not exist in the year {new_year}")
             else:
                 is_valid_input = True
         except ValueError:
