@@ -3,7 +3,7 @@
 
 Assignment 1 for CP1404/CP5632, IT@JCU
 
-By: _Your Name_
+By: Nathan Orawi
 
 This repo contains starter files including a Python file and two CSV files.  
 `songs.csv` is a data file for you to use.  
@@ -16,8 +16,8 @@ the `answer...` parts).
 
 1. How long did the entire project (assignment 1) take you?
 
-   > answer...
+   > 4 days
 
 2. What do you plan to do differently in your development process for assignment 2?
 
-   > answer...
+   > start early

@@ -1,13 +1,15 @@
 """
 Name: Nathan Orawi
 Date started: 25/10/2023
-GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
+Date submitted: 28/10/2023
+GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi
+Note: push via token   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
+
 """
 from operator import itemgetter
 
 FILE_NAME = "songs.csv"
 SONGS = []  # List of dictionaries
-SORTED_SONGS = []  # Sorted SONGS by value 'year'
 YEAR_OF_FIRST_RECORDED_SONG = 1860
 CURRENT_YEAR = 2023
 
@@ -49,7 +51,7 @@ def menu():
             print("Invalid menu choice")
         print(MENU)
         choice = input(">>> ").upper()
-    print(f"{len(SORTED_SONGS) + len(SONGS)} songs saved to {FILE_NAME} \nMake some music!")
+    print(f"{len(SONGS)} songs saved to {FILE_NAME} \nMake some music!")
     quit_song_list()
 
 
@@ -57,19 +59,18 @@ def display_song():
     """Takes the song dictionary then formats and Displays it """
     song_number = 1
     number_of_learned_song = 0
-    SORTED_SONGS = sorted(SONGS, key=itemgetter('year'))  # list of song dictionary
-    print(SORTED_SONGS)
-    for sorted_song_field_to_song_value in SORTED_SONGS:
+    sorted_songs = sorted(SONGS, key=itemgetter('year'))  # list of song dictionaries
+    for sorted_song_field_to_song_value in sorted_songs:
         title, artist, year, learned_status = sorted_song_field_to_song_value.values()
         if learned_status == 'u':
             learned_status = '*'
             number_of_learned_song += 1
         else:
             learned_status = ''
-        print(f"{song_number:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
+        print(f"{song_number:>2}. {learned_status:2} {title:35} - {artist:25} ({year:>04})")
         song_number += 1
     print(
-        f"{(len(SORTED_SONGS) - number_of_learned_song)} songs learned, {number_of_learned_song} songs still to learn.")
+        f"{(len(sorted_songs) - number_of_learned_song)} songs learned, {number_of_learned_song} songs still to learn.")
 
 
 def add_song():
