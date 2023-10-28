@@ -53,13 +53,13 @@ def read_csv_file():
 
 def make_dictionary():
     """makes a song dictionary from csv file"""
-    with open(FILE_NAME, 'r') as csvfile:
-        songs_csv = csvfile.readlines()
-        fields = [fields.strip() for fields in songs_csv[0].split(',')]
-        for line in songs_csv[1:]:
-            values = [value.strip() for value in line.split(',')]
-            song = {field: value for field, value in zip(fields, values)}
-            SONGS.append(song)
+    with open(FILE_NAME, 'r') as csv_file:
+        songs_csv = csv_file.readlines()
+        song_fields = [fields.strip() for fields in songs_csv[0].split(',')]
+        for song_csv in songs_csv[1:]:
+            song_values = [value.strip() for value in song_csv.split(',')]
+            song_field_to_song_value = {field: value for field, value in zip(song_fields, song_values)}
+            SONGS.append(song_field_to_song_value)
 
 
 def display_song():
