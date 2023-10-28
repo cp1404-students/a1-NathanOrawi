@@ -89,20 +89,31 @@ def mark_as_learned():
     """marks a song chosen by its number as learned"""
     learned_index = 0
     print("Enter the number of a song to mark as learned.")
-    mark = int(input(">>> "))
-    while mark <= 0:
-        print("Number must be > 0.")
-        mark = int(input(">>> "))
+    # mark = int(input(">>> "))
+    # while mark <= 0:
+    #     print("Number must be > 0.")
+    #     mark = int(input(">>> "))
+
     sorted_songs = sorted(songs, key=lambda x: x['year'])
-    # print(enumerate(sorted_songs))
-    for index, item in enumerate(sorted_songs):
-        # print(f" {index} {item}")
-        if index == (mark - 1):
-            title, artist, year, learned_status = item.values()  # learned_song
-            print(f"{title} by {artist} learned")
-            learned_index = index
-            break
-    sorted_songs[learned_index]['learned status'] = 'l'
+    is_valid_input = False
+    while not is_valid_input:
+            mark = int(input(">>> "))
+            if mark <= 0:
+                print("Number must be > 0.")
+            elif mark > len(sorted_songs):
+                print("Invalid song number")
+            else:
+                # print(enumerate(sorted_songs))
+                for index, item in enumerate(sorted_songs):
+                    # print(f" {index} {item}")
+                    if index == (mark - 1):
+                        title, artist, year, learned_status = item.values()  # learned_song
+                        print(f"{title} by {artist} learned")
+                        learned_index = index
+                        break
+                sorted_songs[learned_index]['learned status'] = 'l'
+                is_valid_input = True
+
     # print(sorted_songs)
 
 
