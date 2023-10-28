@@ -64,19 +64,21 @@ def make_dictionary():
 
 def display_song():
     """Takes the song dictionary then formats and Displays it """
-    i = 1
-    learned = 0
-    SORTED_SONGS = sorted(SONGS, key=lambda x: x['year'])
-    for sorted_song in SORTED_SONGS:
-        title, artist, year, learned_status = sorted_song.values()
+    song_number = 1
+    number_of_learned_song = 0
+    sorted_song_fields_to_song_values = sorted(SONGS, key=lambda x: x['year'])  # list of song dictionary
+    print(sorted_song_fields_to_song_values)
+    for sorted_song_field_to_song_value in sorted_song_fields_to_song_values:
+        title, artist, year, learned_status = sorted_song_field_to_song_value.values()
         if learned_status == 'u':
             learned_status = '*'
-            learned += 1
+            number_of_learned_song += 1
         else:
             learned_status = ''
-        print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
-        i += 1
-    print(f"{len(SORTED_SONGS) - learned} songs learned, {learned} songs still to learn.")
+        print(f"{song_number:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
+        song_number += 1
+    print(
+        f"{(len(SORTED_SONGS) - number_of_learned_song)} songs learned, {number_of_learned_song} songs still to learn.")
 
 
 def add_song():
