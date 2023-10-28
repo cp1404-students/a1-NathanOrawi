@@ -73,9 +73,6 @@ def format_data():
     print(sorted_songs)
     # Print the sorted list
     for sorted_song in sorted_songs:
-        # print(song)
-
-        # for data in data_list:
         title, artist, year, learned_status = sorted_song.values()
         if learned_status == 'u':
             learned_status = '*'
@@ -89,7 +86,7 @@ def format_data():
 
 def mark_as_learned():
     """marks a song chosen by its number as learned"""
-
+    learned_index = 0
     mark = int(input(">>> "))
     sorted_songs = sorted(songs, key=lambda x: x['year'])
     # print(enumerate(sorted_songs))
@@ -97,10 +94,10 @@ def mark_as_learned():
         # print(f" {index} {item}")
         if index == (mark - 1):
             title, artist, year, learned_status = item.values()  # learned_song
-            item[index] = {'title': title, 'artist': artist, 'year': year, 'learned status': 'l'}
-            # if learned_status == 'u':
             print(f"{title} by {artist} learned")
-        sorted_songs[index] = item
+            learned_index = index
+            break
+    sorted_songs[learned_index]['learned status'] = 'l'
     print(sorted_songs)
 
 
