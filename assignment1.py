@@ -19,7 +19,7 @@ Q - Quit"""
 def main():
     """..."""
     make_dictionary()
-    read_from_file()
+    read_csv_file()
     print("Song List 1.0 - by Nathan Orawi")
     menu()
 
@@ -31,11 +31,11 @@ def menu():
     choice = input(">>> ").upper()
     while choice != 'Q':
         if choice == 'D':
-            format_data()
+            display_song()
         elif choice == 'A':
             add_song()
         elif choice == 'C':
-            mark_as_learned()
+            complete_song()
         else:
             print("Invalid menu choice")
         print(MENU)
@@ -43,7 +43,7 @@ def menu():
     print(f"{len(SORTED_SONGS) + len(SONGS)} songs saved to {FILE_NAME} \nMake some music!")
 
 
-def read_from_file():
+def read_csv_file():
     """reads from a file and display csv song line by line"""
     in_file = open(FILE_NAME)
     songs_csv = in_file.read()
@@ -62,7 +62,7 @@ def make_dictionary():
             SONGS.append(song)
 
 
-def format_data():
+def display_song():
     """Takes the song dictionary then formats and Displays it """
     i = 1
     learned = 0
@@ -77,33 +77,6 @@ def format_data():
         print(f"{i:>2}. {learned_status:2} {title:30} - {artist:25} ({year:>04})")
         i += 1
     print(f"{len(SORTED_SONGS) - learned} songs learned, {learned} songs still to learn.")
-
-
-def mark_as_learned():
-    """marks a song chosen by its number as learned"""
-    learned_index = 0
-    print("Enter the number of a song to mark as learned.")
-    SORTED_SONGS = sorted(SONGS, key=lambda x: x['year'])
-    is_valid_input = False
-    while not is_valid_input:
-        mark = int(input(">>> "))
-        if mark <= 0:
-            print("Number must be > 0.")
-        elif mark > len(SORTED_SONGS):
-            print("Invalid song number")
-        else:
-            for index, item in enumerate(SORTED_SONGS):
-                if index == (mark - 1):
-                    title, artist, year, learned_status = item.values()
-                    if learned_status == 'l':
-                        print(f"You have already learned {title}")
-                    else:
-                        print(f"{title} by {artist} learned")
-                        learned_index = index
-                    break
-            SORTED_SONGS[learned_index]['learned status'] = 'l'
-            is_valid_input = True
-
 
 
 def add_song():
@@ -131,6 +104,32 @@ def add_song():
 
     SONGS.append({'title': new_title, 'artist': new_artist, 'year': str(new_year), 'learned status': 'u'})
     print(f"{new_title} by {new_artist} ({new_year}) added to song list.")
+
+
+def complete_song():
+    """marks a song chosen by its number as learned"""
+    learned_index = 0
+    print("Enter the number of a song to mark as learned.")
+    SORTED_SONGS = sorted(SONGS, key=lambda x: x['year'])
+    is_valid_input = False
+    while not is_valid_input:
+        mark = int(input(">>> "))
+        if mark <= 0:
+            print("Number must be > 0.")
+        elif mark > len(SORTED_SONGS):
+            print("Invalid song number")
+        else:
+            for index, item in enumerate(SORTED_SONGS):
+                if index == (mark - 1):
+                    title, artist, year, learned_status = item.values()
+                    if learned_status == 'l':
+                        print(f"You have already learned {title}")
+                    else:
+                        print(f"{title} by {artist} learned")
+                        learned_index = index
+                    break
+            SORTED_SONGS[learned_index]['learned status'] = 'l'
+            is_valid_input = True
 
 
 if __name__ == '__main__':
