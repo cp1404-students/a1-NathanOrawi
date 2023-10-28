@@ -18,6 +18,7 @@ Q - Quit"""
 
 def main():
     """..."""
+    add_fields_to_csv()
     make_dictionary()
     read_csv_file()
     print("Song List 1.0 - by Nathan Orawi")
@@ -41,6 +42,22 @@ def menu():
         print(MENU)
         choice = input(">>> ").upper()
     print(f"{len(SORTED_SONGS) + len(SONGS)} songs saved to {FILE_NAME} \nMake some music!")
+
+
+def add_fields_to_csv():
+    """adds field to the first line of the csv file"""
+    with open("songs.csv") as file:
+        first_line = file.readline()
+        if first_line != 'title,artist,year,learned status\n':
+            csv_field = 'title,artist,year,learned status\n'
+            in_file = open("songs.csv")
+            line = in_file.read()
+            fielded_file = csv_field + line
+            in_file.close()
+
+            out_file = open("songs.csv", 'w')
+            print(fielded_file.rstrip('\n'), file=out_file)
+            out_file.close()
 
 
 def read_csv_file():
