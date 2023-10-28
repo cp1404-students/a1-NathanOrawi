@@ -4,8 +4,8 @@ Date started: 25/10/2023
 GitHub URL: https://github.com/cp1404-students/a1-NathanOrawi.git
 """
 FILE_NAME = "songs.csv"
-SONGS = []
-SORTED_SONGS = []
+SONGS = []  # List of dictionaries
+SORTED_SONGS = []  # Sorted SONGS by value 'year'
 YEAR_OF_FIRST_RECORDED_SONG = 1860
 CURRENT_YEAR = 2023
 
@@ -66,9 +66,9 @@ def display_song():
     """Takes the song dictionary then formats and Displays it """
     song_number = 1
     number_of_learned_song = 0
-    sorted_song_fields_to_song_values = sorted(SONGS, key=lambda x: x['year'])  # list of song dictionary
-    print(sorted_song_fields_to_song_values)
-    for sorted_song_field_to_song_value in sorted_song_fields_to_song_values:
+    SORTED_SONGS = sorted(SONGS, key=lambda x: x['year'])  # list of song dictionary
+    print(SORTED_SONGS)
+    for sorted_song_field_to_song_value in SORTED_SONGS:
         title, artist, year, learned_status = sorted_song_field_to_song_value.values()
         if learned_status == 'u':
             learned_status = '*'
@@ -112,16 +112,16 @@ def complete_song():
     """marks a song chosen by its number as learned"""
     learned_index = 0
     print("Enter the number of a song to mark as learned.")
-    SORTED_SONGS = sorted(SONGS, key=lambda x: x['year'])
+    sorted_song_fields_to_song_values = sorted(SONGS, key=lambda x: x['year'])
     is_valid_input = False
     while not is_valid_input:
         mark = int(input(">>> "))
         if mark <= 0:
             print("Number must be > 0.")
-        elif mark > len(SORTED_SONGS):
+        elif mark > len(sorted_song_fields_to_song_values):
             print("Invalid song number")
         else:
-            for index, item in enumerate(SORTED_SONGS):
+            for index, item in enumerate(sorted_song_fields_to_song_values):
                 if index == (mark - 1):
                     title, artist, year, learned_status = item.values()
                     if learned_status == 'l':
@@ -130,7 +130,7 @@ def complete_song():
                         print(f"{title} by {artist} learned")
                         learned_index = index
                     break
-            SORTED_SONGS[learned_index]['learned status'] = 'l'
+            sorted_song_fields_to_song_values[learned_index]['learned status'] = 'l'
             is_valid_input = True
 
 
