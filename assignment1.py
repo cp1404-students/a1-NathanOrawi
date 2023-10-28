@@ -87,6 +87,7 @@ def format_data():
 def mark_as_learned():
     """marks a song chosen by its number as learned"""
     learned_index = 0
+    print("Enter the number of a song to mark as learned.")
     mark = int(input(">>> "))
     sorted_songs = sorted(songs, key=lambda x: x['year'])
     # print(enumerate(sorted_songs))
@@ -98,7 +99,7 @@ def mark_as_learned():
             learned_index = index
             break
     sorted_songs[learned_index]['learned status'] = 'l'
-    print(sorted_songs)
+    # print(sorted_songs)
 
 
 def add_song():
