@@ -12,6 +12,8 @@ FILE_NAME = "songs.csv"
 SONGS = []  # List of dictionaries
 YEAR_OF_FIRST_RECORDED_SONG = 1860
 CURRENT_YEAR = 2023
+SONG_LIST_VERSION = 1
+SONG_LIST_OWNER = 'Nathan Orawi'
 
 MENU = """Menu:
 D - Display songs
@@ -31,7 +33,7 @@ def main():
 
     # Display of program structure is set here
     read_csv_file()
-    print("Song List 1.0 - by Nathan Orawi")
+    print(f"Song List {SONG_LIST_VERSION:.1f} - by {SONG_LIST_OWNER}")
     menu()  # Where 'song.csv' is manipulated
 
 
@@ -74,6 +76,7 @@ def display_song():
 
 
 def add_song():
+    """adds a song to the song list"""
     print("Enter details for a new song.")
     new_title = input("Title: ")
     while new_title.strip() == '':
